@@ -2,7 +2,7 @@
 
 obs2zoom is a script to configure [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) and its Acoustic Echo Cancellation (AEC) features for use with [OBS Studio](https://obsproject.com) (OBS).  obs2zoom should very loosely mimic the functionality of [Virtual Audio Cable](https://vb-audio.com/Cable/) to route your audio from your Microphone, to OBS, to your preferred video conferencing application like [Zoom](https://zoom.us), [Google Meet](https://meet.google.com), [Google Duo](https://duo.google.com), [WebEx](https://www.webex.com), [BlueJeans](https://www.bluejeans.com), and more.
 
-obs2zoom allows you to configure and deconfigure PulseAudio as needed without the need to set "permanent" configurations in /etc/pulse/default.pa or ~/.config/pulse/default.pa.
+obs2zoom allows you to configure and deconfigure PulseAudio as needed for use with OBS without the need to set "permanent" configurations in /etc/pulse/default.pa or ~/.config/pulse/default.pa.
 
 
 # Usage

@@ -17,7 +17,7 @@ check_if_modules_are_loaded() {
 check_if_obs_is_running() {
   pgrep -x obs > /dev/null 2>&1
   if [ $? = 0 ]; then
-    echo "OBS Studio is running.  Close obs, or run \`obs2zoom stop\`."
+    echo "OBS Studio is running.  Close obs, or run \`obs2zoom stop\` or \`obs2zoom restart\`."
     exit
   fi
 }

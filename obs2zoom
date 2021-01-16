@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# obs2zoom
+
+# Configure Pulseaudio for use with OBS Studio and Video Conferencing
+# applications e.g. Zoom, Google Meets, etc
+
+OBS_START_VCAM=yes
+
+check_if_modules_are_loaded() {
+  pactl list modules short | egrep -w 'module-echo-cancel|module-virtual-source|module-null-sink|module-virtual-sink' > /dev/null 2>&1
+  if [ $? = 0 ]; then
+    unload_modules
+  fi
+}
+
+check_if_obs_is_running() {
+  pgrep -x obs > /dev/null 2>&1
+  if [ $? = 0 ]; then
+    echo "OBS Studio is running.  Close obs, or run `obs2zoom stop`."
+    exit
+  fi
+}
+
+start_obs() {
+  if [ $OBS_START_VCAM = 'yes' ]; then
+    obs --startvirtualcam &
+  else
+    obs &
+  fi
+}
+
+kill_obs() {
+  pkill -x obs
+}
+
+unload_modules() {
+  pactl list modules short > /dev/null 2>&1 | grep -w 'module-echo-cancel' && pactl unload-module module-echo-cancel
+  pactl list modules short > /dev/null 2>&1 | grep -w 'module-virtual-source' && pactl unload-module module-virtual-source
+  pactl list modules short > /dev/null 2>&1 | grep -w 'module-virtual-sink' && pactl unload-module module-virtual-sink
+  pactl list modules short > /dev/null 2>&1 | grep -w 'module-null-sink' && pactl unload-module module-null-sink
+}
+
+configure_sound() {
+  pactl load-module module-null-sink sink_name=from_obs sink_properties=device.description='"OBS\ monitor\ sink"' > /dev/null 2>&1
+  pactl load-module module-virtual-sink master=@DEFAULT_SINK@ use_volume_sharing=no sink_name=to_obs sink_properties=device.description='"To\ OBS"' > /dev/null 2>&1
+  pactl load-module module-virtual-sink master=@DEFAULT_SINK@ use_volume_sharing=no sink_name=to_obsmon sink_properties=device.description='"To\ OBS\ (Monitored)"' > /dev/null 2>&1
+  pactl load-module module-virtual-source source_name=from_obs master=from_obs.monitor source_properties=device.description='"From\ OBS"' > /dev/null 2>&1
+  pactl load-module module-echo-cancel aec_method=webrtc source_name=aec_mic source_master=@DEFAULT_SOURCE@ source_properties=device.description='"Echo\ Cancelled\ Microphone"' sink_name=to_obsaec sink_master=to_obs sink_properties=device.description='"Echo\ Cancelled\ Speakers"' use_master_format="true" aec_args="analog_gain_control=0\ digital_gain_control=1" > /dev/null 2>&1
+  pactl set-default-source aec_mic
+  pactl set-default-sink to_obsaec
+}
+
+case $1 in 
+  start)
+    check_if_obs_is_running
+    check_if_modules_are_loaded
+    configure_sound
+    start_obs
+    ;;
+
+  stop)
+    kill_obs
+    unload_modules
+    ;;
+
+  *)
+    echo "Usage: obs2zoom start|stop"
+    ;;
+
+esac

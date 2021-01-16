@@ -17,7 +17,7 @@ check_if_modules_are_loaded() {
 check_if_obs_is_running() {
   pgrep -x obs > /dev/null 2>&1
   if [ $? = 0 ]; then
-    echo "OBS Studio is running.  Close obs, or run `obs2zoom stop`."
+    echo "OBS Studio is running.  Close obs, or run \`obs2zoom stop\`."
     exit
   fi
 }
@@ -35,10 +35,10 @@ kill_obs() {
 }
 
 unload_modules() {
-  pactl list modules short > /dev/null 2>&1 | grep -w 'module-echo-cancel' && pactl unload-module module-echo-cancel
-  pactl list modules short > /dev/null 2>&1 | grep -w 'module-virtual-source' && pactl unload-module module-virtual-source
-  pactl list modules short > /dev/null 2>&1 | grep -w 'module-virtual-sink' && pactl unload-module module-virtual-sink
-  pactl list modules short > /dev/null 2>&1 | grep -w 'module-null-sink' && pactl unload-module module-null-sink
+  pactl list modules short | grep -w 'module-echo-cancel' && pactl unload-module module-echo-cancel
+  pactl list modules short | grep -w 'module-virtual-source' && pactl unload-module module-virtual-source
+  pactl list modules short | grep -w 'module-virtual-sink' && pactl unload-module module-virtual-sink
+  pactl list modules short | grep -w 'module-null-sink' && pactl unload-module module-null-sink
 }
 
 configure_sound() {
@@ -51,21 +51,45 @@ configure_sound() {
   pactl set-default-sink to_obsaec
 }
 
+start() {
+  check_if_obs_is_running
+  check_if_modules_are_loaded
+  configure_sound
+  start_obs
+}
+
+stop() {
+  kill_obs
+  unload_modules  
+}
+
+restart() {
+  stop
+  sleep 1
+  start
+}
+
 case $1 in 
   start)
-    check_if_obs_is_running
-    check_if_modules_are_loaded
-    configure_sound
-    start_obs
+    start
+    #check_if_obs_is_running
+    #check_if_modules_are_loaded
+    #configure_sound
+    #start_obs
     ;;
 
   stop)
-    kill_obs
-    unload_modules
+    stop
+    #kill_obs
+    #unload_modules
+    ;;
+
+  restart)
+    restart
     ;;
 
   *)
-    echo "Usage: obs2zoom start|stop"
+    echo "Usage: obs2zoom start|stop|restart"
     ;;
 
 esac

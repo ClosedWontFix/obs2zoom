@@ -40,7 +40,7 @@ Now go to Edit->Advanced Audio Properties, and set the Audio Monitoring like so:
 ![image](https://user-images.githubusercontent.com/12750133/111318798-602dcb00-8633-11eb-9a76-864081ee619e.png)
 
 
-Now all the hard stuff is done. Open whatever VidConf software you are using, and Select:
+Now all the hard stuff is done. Open whatever VidConf software you are using, and select:
 
 - Microphone -> 'Echo Cancelled Microphone'
 - Speakers -> 'Echo Cancelled Speakers'

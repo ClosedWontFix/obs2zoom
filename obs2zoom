@@ -1,29 +1,30 @@
 #!/bin/bash
-
-# obs2zoom
-
-# Configure Pulseaudio for use with OBS Studio and Video Conferencing
-# applications e.g. Zoom, Google Meets, etc
+#
+# Name: obs2zoom
+# Description: Configure Pulseaudio for use with OBS Studio and Video
+# Conferencing applications e.g. Zoom, Google Meets, etc
+# Author: ClosedWontFix
+#
 
 OBS_START_VCAM=yes
 
 check_if_modules_are_loaded() {
   pactl list modules short | egrep -w 'module-echo-cancel|module-virtual-source|module-null-sink|module-virtual-sink' > /dev/null 2>&1
-  if [ $? = 0 ]; then
+  if [[ $? = 0 ]]; then
     unload_modules
   fi
 }
 
 check_if_obs_is_running() {
   pgrep -x obs > /dev/null 2>&1
-  if [ $? = 0 ]; then
+  if [[ $? = 0 ]]; then
     echo "OBS Studio is running.  Close obs, or run \`obs2zoom stop\` or \`obs2zoom restart\`."
     exit
   fi
 }
 
 start_obs() {
-  if [ $OBS_START_VCAM = 'yes' ]; then
+  if [[ $OBS_START_VCAM = 'yes' ]]; then
     obs --startvirtualcam &
   else
     obs &
@@ -72,16 +73,10 @@ restart() {
 case $1 in 
   start)
     start
-    #check_if_obs_is_running
-    #check_if_modules_are_loaded
-    #configure_sound
-    #start_obs
     ;;
 
   stop)
     stop
-    #kill_obs
-    #unload_modules
     ;;
 
   restart)
@@ -93,3 +88,5 @@ case $1 in
     ;;
 
 esac
+
+# vim: ft=bash ts=2 sw=2 ai

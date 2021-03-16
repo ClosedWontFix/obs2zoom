@@ -17,12 +17,18 @@ To stop obs2zoom and remove the created virtual devices
 
 In OBS, go to File->Settings->Audio->Advanced, and select 'Monitor of OBS monitor sink'.
 
+![image](https://user-images.githubusercontent.com/12750133/111318703-4d1afb00-8633-11eb-9d89-5c1c7e3aa78d.png)
+
+
 Next, create a scene, and add the following sources:
 
 - Audio Input Capture (pulseaudio): Name it 'Echo Cancelled Microphone', and select the device with the same name.
 - Audio Input Capture (pulseaudio): Name it 'Microphone', and select the physical microphone that you will use for input.
 - Audio Output Capture (pulseaudio): Name it 'To OBS', and select the device with the same name.
 - Audio Output Capture (pulseaudio): Name it 'To OBS (Monitored)', and select the device with the same name.
+
+![image](https://user-images.githubusercontent.com/12750133/111318762-57d59000-8633-11eb-84cb-d0668b1fef87.png)
+
 
 Now go to Edit->Advanced Audio Properties, and set the Audio Monitoring like so:
 
@@ -31,10 +37,16 @@ Now go to Edit->Advanced Audio Properties, and set the Audio Monitoring like so:
 - To OBS - Monitor Off
 - To OBS - Monitor and Output
 
+![image](https://user-images.githubusercontent.com/12750133/111318798-602dcb00-8633-11eb-9a76-864081ee619e.png)
+
+
 Now all the hard stuff is done. Open whatever VidConf software you are using, and Select:
 
 - Microphone -> 'Echo Cancelled Microphone'
 - Speakers -> 'Echo Cancelled Speakers'
+
+![image](https://user-images.githubusercontent.com/12750133/111318854-6fad1400-8633-11eb-9249-03e5bc40633c.png)
+
 
 obs2zoom has been tested on Zoom (duh), Webex, Google Meet, Google Duo, MS Teams, BlueJeans, and Signal Desktop.
 

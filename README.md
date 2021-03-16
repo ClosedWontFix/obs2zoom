@@ -15,6 +15,29 @@ To stop obs2zoom and remove the created virtual devices
 
     obs2zoom stop
 
+In OBS, go to File->Settings->Audio->Advanced, and select 'Monitor of OBS monitor sink'.
+
+Next, create a scene, and add the following sources:
+
+- Audio Input Capture (pulseaudio): Name it 'Echo Cancelled Microphone', and select the device with the same name.
+- Audio Input Capture (pulseaudio): Name it 'Microphone', and select the physical microphone that you will use for input.
+- Audio Output Capture (pulseaudio): Name it 'To OBS', and select the device with the same name.
+- Audio Output Capture (pulseaudio): Name it 'To OBS (Monitored)', and select the device with the same name.
+
+Now go to Edit->Advanced Audio Properties, and set the Audio Monitoring like so:
+
+- Echo Cancelled Microphone - Monitor Off
+- Microphone - Monitor Only (mute output)
+- To OBS - Monitor Off
+- To OBS - Monitor and Output
+
+Now all the hard stuff is done. Open whatever VidConf software you are using, and Select:
+
+- Microphone -> 'Echo Cancelled Microphone'
+- Speakers -> 'Echo Cancelled Speakers'
+
+obs2zoom has been tested on Zoom (duh), Webex, Google Meet, Google Duo, MS Teams, BlueJeans, and Signal Desktop.
+
 
 # Credit
 

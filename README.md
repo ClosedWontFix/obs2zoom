@@ -50,6 +50,12 @@ Now all the hard stuff is done. Open whatever VidConf software you are using, an
 
 obs2zoom has been tested on Zoom (duh), Webex, Google Meet, Google Duo, MS Teams, BlueJeans, and Signal Desktop.
 
+# Filters
+
+If you would like to add filters (like Noise Suppression, or Noise Gate) to your capture device, add them to 'Microphone'.
+
+![image](https://user-images.githubusercontent.com/12750133/114203366-b71a7d80-991d-11eb-83dc-c47b40699585.png)
+
 
 # Credit
 

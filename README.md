@@ -73,3 +73,9 @@ obs2zoom was written with tips and suggestions from these links:
 To use obs2zoom with [OBS v26.1.0](https://github.com/obsproject/obs-studio/releases/tag/26.1.0) or greater utilizing its built-in Virtual Camera functionality, install v4l2loopback.
 
 - https://github.com/umlaeute/v4l2loopback
+
+# pipewire
+
+obs2zoom does not currently support pipewire, as pipewire does not yet have an echo cancelation module.
+
+- https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/PulseAudio
